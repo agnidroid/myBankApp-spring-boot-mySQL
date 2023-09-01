@@ -48,7 +48,7 @@ public class AccountsController {
             return ResponseEntity.status(HttpStatusCode.valueOf(404)).build();
         }
         accountService.deleteById(id);
-        return ResponseEntity.status(HttpStatusCode.valueOf(200)).build();
+        return ResponseEntity.status(HttpStatusCode.valueOf(204)).build();
     }
 
 }
