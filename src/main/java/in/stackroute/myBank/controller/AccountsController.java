@@ -23,6 +23,9 @@ public class AccountsController {
 
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody Account account){
+        if(accountService.exits(account)){
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).build();
+        }
         var savedAccount=accountService.save(account);
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(savedAccount);
     }
@@ -31,9 +34,9 @@ public class AccountsController {
 
         var accounts=accountService.findAll();
         if(accounts.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatusCode.valueOf(404)).build();
         }
-        return ResponseEntity.ok(accounts);
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(accounts);
     }
 
 
@@ -42,10 +45,10 @@ public class AccountsController {
     public ResponseEntity<Void> deleteReminder(@PathVariable int id) {
 
         if (!accountService.exitsById(id)) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatusCode.valueOf(404)).build();
         }
         accountService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatusCode.valueOf(200)).build();
     }
 
 }

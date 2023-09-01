@@ -34,8 +34,15 @@ public class AccountServiceImpl implements AccountService{
         if(!repository.existsById(id)){
             return false;
         }
-
         return  true;
+    }
+
+    @Override
+    public boolean exits(Account account){
+        if(repository.existsById(account.getAccountID())){
+            return true;
+        }
+        return false;
     }
 
 }

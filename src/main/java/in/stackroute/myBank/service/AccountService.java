@@ -10,6 +10,7 @@ public interface AccountService {
     void deleteById(int accountID);
     List<Account> findAll();
     boolean exitsById(int id);
+    boolean exits(Account account);
 
 
 }
